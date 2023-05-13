@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Akshare: Resolution to the missing of mini_racer.dll and calendar.json after using pyinstaller, Jason&#39;s Home">
-    <meta name="description" content="Version and EnvironmentWindows 10python 3.8.3akshare 1.9.64pyinstaller 5.10.1
-Problem DescriptionAfter using PyInstaller">
+    <meta name="keywords" content="LeetCode P34 Find First and Last Position of Element in Sorted Array, Jason&#39;s Home">
+    <meta name="description" content="ObservationSince you have already known how to search for a certain element in an ordered array, finding the starting an">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +17,7 @@ Problem DescriptionAfter using PyInstaller">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Akshare: Resolution to the missing of mini_racer.dll and calendar.json after using pyinstaller | Jason&#39;s Home</title>
+    <title>LeetCode P34 Find First and Last Position of Element in Sorted Array | Jason&#39;s Home</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -337,12 +336,12 @@ Problem DescriptionAfter using PyInstaller">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Akshare: Resolution to the missing of mini_racer.dll and calendar.json after using pyinstaller</h1>
+                    <h1 class="description center-align post-title">LeetCode P34 Find First and Last Position of Element in Sorted Array</h1>
                 </div>
             </div>
         </div>
@@ -366,8 +365,12 @@ Problem DescriptionAfter using PyInstaller">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Python/">
-                                <span class="chip bg-color">Python</span>
+                            <a href="/tags/LeetCode/">
+                                <span class="chip bg-color">LeetCode</span>
+                            </a>
+                        
+                            <a href="/tags/Algorithm/">
+                                <span class="chip bg-color">Algorithm</span>
                             </a>
                         
                     </div>
@@ -382,7 +385,7 @@ Problem DescriptionAfter using PyInstaller">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2023-05-12
+                    2023-05-13
                 </div>
                 
 
@@ -403,16 +406,48 @@ Problem DescriptionAfter using PyInstaller">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Version-and-Environment"><a href="#Version-and-Environment" class="headerlink" title="Version and Environment"></a>Version and Environment</h2><p>Windows 10<br>python 3.8.3<br>akshare 1.9.64<br>pyinstaller 5.10.1</p>
-<h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><p>After using PyInstaller to pack my project, when I tried running that packaged program, it showed the following window, which meant the file mini_racer.dll was missing. However, when I tried to run it with the command “python main.py”, everything seemed to be OK.<br><img src="/2023/05/12/akshare-resolution-to-the-missing-of-mini-racer-dll-and-calendar-json-after-using-pyinstaller/MissingMiniRacerDll.png" alt="Missing mini_racer.dll"><br>Then I used the parameter –add-data to manually add mini_racer.dll (copied from the mini_racer package). It showed the error window again. It prompted that the file calendar.json was missing.<br><img src="/2023/05/12/akshare-resolution-to-the-missing-of-mini-racer-dll-and-calendar-json-after-using-pyinstaller/MissingCalendarJson.png" alt="Missing calendar.json"><br>Then I continued add calendar.json. But this time it did not work.</p>
-<h2 id="Resolution"><a href="#Resolution" class="headerlink" title="Resolution"></a>Resolution</h2><p>I did not find any effective solution to the issue. The following solution is created by myself which have not been fully checked, so it may remains some other bugs.</p>
-<p>Step 1: Type the follwong command. Make sure that you use -D instead of -F.</p>
-<pre class=" language-python"><code class="language-python">pyinstaller <span class="token operator">-</span>D <span class="token operator">-</span>w <span class="token punctuation">.</span><span class="token operator">/</span>main<span class="token punctuation">.</span>py
+                <h2 id="Observation"><a href="#Observation" class="headerlink" title="Observation"></a>Observation</h2><p>Since you have already known how to search for a certain element in an ordered array, finding the starting and ending position of a given value is almost the same. The key is that you may have to do binary search twice, one time for recording the left boundary and the another for recording the right.</p>
+<p>Then, how to get the so-called left and right boundary when doing binary search? The principle is very simple. For example, if you want to get the left boundary, you need to classify the cases where the current element is equal to the target value and greater than the target value. Moreover, you have to update the left boundary when the current element is lower than the target. </p>
+<p>If no element in the array equals to the target value, the left boundary may not be changed or it equals to the zero. Considering that we can assign the special value to the left boundary and right boundary. After the binary serach, if one of the boundaries has not been changed or the left one is greater than the right one, just output [-1,-1].</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">searchRange</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ans <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        ans<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> ans<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> r <span class="token operator">=</span> nums<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> lb <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">105</span><span class="token punctuation">,</span> rb <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">105</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;=</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            i <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>=</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">// Classify nums[i] > target and nums[i] == target together.</span>
+                r <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                lb <span class="token operator">=</span> r<span class="token punctuation">;</span><span class="token comment" spellcheck="true">// Recoder left boundary when nums[i] >= target.</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                l <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        r <span class="token operator">=</span> nums<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;=</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            i <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                r <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                l <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                rb <span class="token operator">=</span> l<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>lb <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">105</span> <span class="token operator">||</span> rb <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">105</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>rb <span class="token operator">-</span> lb <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ans<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> lb <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            ans<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> rb <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<p>Step 2: Open the location of main.exe and create a new folder named <em><b>akshare</b></em>. Open the akshare folder and create a new folder named <em><b>file_fold</b></em>. Please note that the name of those two folders cannot be changed!</p>
-<p>Step 3: Open the installation location of the py_mini_racer package (dependency package of the akshare package), find mini_racer.dll, and copy it to the <em><b>akshare</b></em> folder just created.</p>
-<p>Step 4: Open the installation location of the akshare package, find calendar.json, and copy it to the <em><b>file_fold</b></em> folder just created.</p>
-<p>Step 5: Run main.exe.</p>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/">https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/</a></p>
 
                 
             </div>
@@ -439,7 +474,7 @@ Problem DescriptionAfter using PyInstaller">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://CareEJoken/github.io/2023/05/12/akshare-resolution-to-the-missing-of-mini-racer-dll-and-calendar-json-after-using-pyinstaller/">http://CareEJoken/github.io/2023/05/12/akshare-resolution-to-the-missing-of-mini-racer-dll-and-calendar-json-after-using-pyinstaller/</a>
+                    <a href="http://CareEJoken/github.io/2023/05/13/leetcode-p34-find-first-and-last-position-of-element-in-sorted-array/">http://CareEJoken/github.io/2023/05/13/leetcode-p34-find-first-and-last-position-of-element-in-sorted-array/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -477,8 +512,12 @@ Problem DescriptionAfter using PyInstaller">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Python/">
-                                    <span class="chip bg-color">Python</span>
+                                <a href="/tags/LeetCode/">
+                                    <span class="chip bg-color">LeetCode</span>
+                                </a>
+                            
+                                <a href="/tags/Algorithm/">
+                                    <span class="chip bg-color">Algorithm</span>
                                 </a>
                             
                         </div>
@@ -557,9 +596,10 @@ Problem DescriptionAfter using PyInstaller">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2023/05/13/leetcode-p34-find-first-and-last-position-of-element-in-sorted-array/">
                     <div class="card-image">
@@ -577,9 +617,9 @@ Problem DescriptionAfter using PyInstaller">
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -588,6 +628,7 @@ Problem DescriptionAfter using PyInstaller">
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -610,13 +651,13 @@ Problem DescriptionAfter using PyInstaller">
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/02/hello-world/">
+                <a href="/2023/05/12/akshare-resolution-to-the-missing-of-mini-racer-dll-and-calendar-json-after-using-pyinstaller/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Akshare: Resolution to the missing of mini_racer.dll and calendar.json after using pyinstaller">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">Akshare: Resolution to the missing of mini_racer.dll and calendar.json after using pyinstaller</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -627,7 +668,7 @@ Problem DescriptionAfter using PyInstaller">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-12
                             </span>
                         <span class="publish-author">
                             
@@ -636,6 +677,14 @@ Problem DescriptionAfter using PyInstaller">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
                 </div>
                 
             </div>
